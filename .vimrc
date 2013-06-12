@@ -1,21 +1,54 @@
-" Liberally stolen from https://github.com/spf13/spf13-vim/blob/master/.vimrc
-set nocompatible 		" must be first line
-set background=dark     " Assume a dark background
-filetype plugin indent on  	" Automatically detect file types.
-syntax on 					" syntax highlighting
-set linespace=0					" No extra spaces between rows
-set nu							" Line numbers on
-set showmatch					" show matching brackets/parenthesis
-set incsearch					" find as you type search
-set hlsearch					" highlight search terms
-set nowrap                     	" wrap long lines
-set autoindent                 	" indent at the same level of the previous line
-set expandtab 	  	     		" tabs are spaces, not tabs
-"set shiftwidth=2               	" use indents of 2 spaces
-"set tabstop=2 					" an indentation every four columns
-"set softtabstop=2 				" let backspace delete indent
-set matchpairs+=<:>            	" match, to be used with % 
-set pastetoggle=<F12>          	" pastetoggle (sane indentation on pastes)
-set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
+"Not compatible with vi
+set nocompatible
 
-call pathogen#infect()
+" Filetype Stuff
+filetype on
+filetype plugin on
+filetype indent on
+
+"Turn on syntax highlighting
+syntax on
+
+"set hidden
+set hidden
+
+"Don't update display when executing macros
+set lazyredraw
+
+"Let yourself know what mode your'e in
+set showmode
+
+"set search scan to wrap around file
+set wrapscan
+
+"make command line two lines high
+set ch=2
+
+"keep stuff in history
+set history=100
+
+"set tabs to only be 2 spaces
+set tabstop=2 shiftwidth=2 expandtab
+
+" Highlight trailing whitespace
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd BufRead,InsertLeave * match ExtraWhitespace /\s\+$/
+
+" Highlight too-long lines
+autocmd BufRead,InsertEnter,InsertLeave * 2match LineLengthError /\%100v.*/
+highlight LineLengthError ctermbg=black guibg=black
+autocmd ColorScheme * highlight LineLengthError ctermbg=black guibg=black
+
+" Set up highlight group & retain through colorscheme changes
+highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+
+
+map <C-n> <ESC>:tabnew<RETURN>
+map <C-h> <ESC>:tabp<CR>
+map <C-l> <ESC>:tabn<CR>
+set guioptions-=T
+set ofu=syntaxcomplete#Complete
+let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+
+au BufNewFile,BufRead *.ejs set filetype=html
