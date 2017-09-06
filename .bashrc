@@ -66,6 +66,7 @@ if [ -x /usr/bin/dircolors ]; then
     alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
+    alias srvdir='python -m SimpleHTTPServer'
 
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
@@ -76,6 +77,8 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+
+alias gdbb='gdb --batch --ex run --ex bt --ex q --args'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -92,8 +95,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
 function parse_git_branch {
  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
   echo "("${ref#refs/heads/}")"
@@ -106,6 +107,13 @@ WHITE="\[\033[0;47;m\]"
 
 PS1="$GREEN\u@\h \w$YELLOW \$(parse_git_branch)$GREEN $ $WHITE"
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+eval `dircolors /home/dlederle/.dir_colors/dircolors`
 
-JAVA_HOME=/usr/lib/jvm/java-6-oracle/
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
