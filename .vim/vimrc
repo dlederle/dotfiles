@@ -1,0 +1,193 @@
+set nocompatible
+autocmd!
+
+"""
+" plugins
+"
+if filereadable(glob('~/.vim/vimrc.plugins'))
+  source ~/.vim/vimrc.plugins
+endif
+
+" airline
+let g:airline_powerline_fonts = 1
+
+" Only show branch in section b
+"let g:airline_section_b = airline#section#create(['branch'])
+let g:airline#extensions#hunks#enabled = 0
+let g:airline#extensions#ale#enabled = 1
+
+" Show path relative to cwd
+let g:airline_section_c = '%f%m'
+
+" Remove unnecessary symbols
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+let g:airline_symbols.linenr = ''
+let g:airline_symbols.maxlinenr = ''
+
+" Only show file encoding if it's not UTF-8
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+
+
+" GitGutter
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager    = 0
+
+" vim-json
+" Disable double quotes conceal
+let g:vim_json_syntax_conceal = 0
+
+" Fix broken vim-json syntax highlighting
+hi! def link jsonKeyword Identifier
+
+" Show hidden files in nerdtree
+let NERDTreeShowHidden = 1
+
+" Ultisnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+"""
+" Settings
+"
+filetype plugin indent on
+syntax on
+
+" runtime macros/matchit.vim
+
+" colorscheme Tomorrow-Night-Eighties
+
+" highlight CursorLineNR ctermfg=cyan
+
+set autoindent
+set backspace=indent,eol,start
+set backupdir=~/.vim/tmp/backup
+set cursorline
+set dir=~/.vim/tmp/swap/
+set encoding=utf-8
+set expandtab
+set exrc
+set hidden
+set history=1000
+set hlsearch
+set incsearch
+set iskeyword+=-
+set laststatus=2
+set listchars=tab:▸\ ,eol:¬
+set number
+set scrolloff=3
+set shell=/bin/bash
+set shiftwidth=2
+set showcmd
+set showmode
+set smarttab
+set softtabstop=2
+set tabstop=2
+set undodir=~/.vim/tmp/backup
+set undofile
+set visualbell
+set wildignore=*.DS_Store,*.dSYM,*.log,*.o,*.ss~
+set wildmode=list:longest
+set mouse=n
+
+" Fix performance problems with Ruby syntax highlighting
+set lazyredraw
+set regexpengine=1
+
+command! StripWhitespace %s/\s\+$//e | noh
+
+"""
+" Mappings
+" "
+let mapleader = " "
+let maplocalleader = ","
+
+nnoremap <leader>t :NERDTreeToggle<CR>
+
+" Fzf
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>F :Files %:p:h<CR>
+nnoremap <leader>b :Buffers<CR>
+
+" Faster search and replace
+noremap <leader>s :%s//g<LEFT><LEFT>
+
+" Clear search results
+nnoremap <c-l> :noh<CR>
+
+" AutoComplete coc
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+
+"""
+" Auto Commands
+"
+augroup filetypes
+  autocmd BufRead,BufNewFile {*.markdown,*.md} set filetype=markdown
+  autocmd FileType markdown set cursorline
+  autocmd FileType markdown set conceallevel=2
+  autocmd FileType markdown setlocal spell
+  autocmd FileType markdown Goyo
+
+  autocmd BufRead,BufNewFile {Gemfile,Vagrantfile,*.arb} set filetype=ruby
+  autocmd BufRead,BufNewFile {*.html.drab} set filetype=eelixir
+
+  autocmd FileType objc,c setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+  autocmd FileType go setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+  autocmd FileType markdown setlocal linebreak
+  autocmd FileType arduino,c,cpp setlocal commentstring=//\ %s
+  autocmd FileType terraform setlocal commentstring=#\ %s
+augroup END
+
+"""
+" GUI prefs
+
+if filereadable(glob('~/.vim/vimrc.rails'))
+  source ~/.vim/vimrc.rails
+endif
+
+silent execute '!mkdir -p $HOME/.vim/tmp/backup'
+silent execute '!mkdir -p $HOME/.vim/tmp/swap'
+silent execute '!mkdir -p $HOME/.vim/tmp/undo'
+
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+"""
+" vim-test/vim-test
+"
+
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+
+"""
+" https://github.com/neoclide/coc.nvim/wiki/Multiple-cursors-support
+"
+
+nmap <silent> <C-c> <Plug>(coc-cursors-position)
+nmap <silent> <C-d> <Plug>(coc-cursors-word)
+xmap <silent> <C-d> <Plug>(coc-cursors-range)
+" use normal command like `<leader>xi(`
+nmap <leader>x  <Plug>(coc-cursors-operator)
+
+set rtp+=/usr/local/opt/fzf
+
+set pastetoggle=<F2>
+
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'

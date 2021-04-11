@@ -1,0 +1,62 @@
+if &compatible
+  set nocompatible
+end
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-projectionist'
+" Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-repeat'
+" Plug 'tpope/vim-eunuch'
+" Plug 'tpope/vim-unimpaired'
+" Plug 'tpope/vim-commentary'
+" Plug 'tpope/vim-dispatch'
+" Plug 'tpope/vim-abolish'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+" Plug 'kana/vim-textobj-user'
+" Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'airblade/vim-gitgutter'
+" Plug 'Shougo/unite.vim'
+Plug 'bling/vim-airline'
+" Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim/' }
+
+" Language plugins
+Plug 'elixir-lang/vim-elixir'
+Plug 'avdgaag/vim-phoenix'
+
+" Plug 'isRuslan/vim-es6'
+
+" Plug 'rust-lang/rust.vim'
+" Plug 'cespare/vim-toml'
+" Plug 'pearofducks/ansible-vim'
+" Plug 'hashivim/vim-hashicorp-tools'
+" Plug 'fatih/vim-go'
+" Plug 'elzr/vim-json'
+" Plug 'tpope/vim-rails'
+" Plug 'keith/swift.vim'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+" Plug 'junegunn/vim-easy-align'
+" Plug 'dermusikman/sonicpi.vim'
+" Plug 'luochen1990/rainbow'
+" Plug 'tpope/vim-sexp-mappings-for-regular-people'
+" Plug 'vim-syntastic/syntastic'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'psf/black', { 'branch': 'stable' }
+Plug 'galooshi/vim-import-js'
+Plug 'vim-test/vim-test'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+
+
+Plug 'junegunn/goyo.vim'
+
+Plug 'editorconfig/editorconfig'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+call plug#end()
+

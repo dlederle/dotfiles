@@ -1,0 +1,6 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": ["css", "jsx", "js", "ex", "exs"],
+  "eslint.packageManager": "yarn",
+  "eslint.autoFixOnSave": true,
+	"elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh"
+}
